@@ -1,6 +1,8 @@
 ﻿// Include code libraries you need below (use the namespace).
 using System;
 using System.Numerics;
+using System.Threading;
+using static System.Formats.Asn1.AsnWriter;
 
 // The namespace your code is in.
 namespace Game10003
@@ -11,7 +13,9 @@ namespace Game10003
     public class Game
     {
         // Place your variables here:
-
+        int hitScore = 0;
+        bool isClicking = false;
+        Vector2 targetPos;
 
         /// <summary>
         ///     Setup runs once before the game loop begins.
@@ -21,7 +25,7 @@ namespace Game10003
             Window.SetTitle("Click the Dot");
             Window.SetSize(400, 400);
             Window.TargetFPS = 60;
-            //target = Color.White;
+            targetPos = Random.Vector2(200, 200, 200, 200);
         }
 
         /// <summary>
@@ -29,19 +33,20 @@ namespace Game10003
         /// </summary>
         public void Update()
         {
-            bool isClicking = Input.IsMouseButtonPressed(MouseInput.Left);
-            if (isClicking == true)
+            Window.ClearBackground(Color.OffWhite);
+            //bool isClicking = Input.IsMouseButtonPressed(MouseInput.Left);
+            if (Input.IsMouseButtonPressed(MouseInput.Left))
             {
-                DrawTarget();
+                targetPos = Random.Vector2(20, 380, 20, 380);
+                hitScore++;
+                isClicking = true;
             }
+            DrawTarget();
         }
         void DrawTarget()
         {
-            Vector2 targetPos = new Vector2();
-            targetPos = Random.Vector2(360, 360);
-
-            Draw.FillColor = Color.OffWhite;
-            Draw.Circle(targetPos, 80);
+            Draw.FillColor = Color.Black;
+            Draw.Circle(targetPos, 55);
         }
     }
 }
