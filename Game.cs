@@ -14,9 +14,11 @@ namespace Game10003
         int hitScore = 0;
         int cRadius = 60;
         int checkRadius = 65;
+        int WinTime = 0;
+        int TotalTime = 0;
         bool isClicking = false;
-        bool isOverlap = false;
-        bool retryLocation = false;
+        bool win = false;
+        bool outcomeRan = false;
         Vector2 targetPos;
         Vector2 fake1;
         Vector2 fake2;
@@ -107,15 +109,27 @@ namespace Game10003
                 else
                 {
                     cRadius = 0;
+                    win = true;
+                    RunFinished();
+                    cRadius = -1;
                 }
+            }
+            if (hitScore >= 1)
+            {
+                WinTime++;
             }
             // Calls the function to draw the dots
             DrawTarget();
             DrawFakeouts();
         }
-        public static class Text
+        void RunFinished()
         {
-
+            if (win == true);
+            {
+                TotalTime = WinTime / 60;
+                Console.WriteLine("\nYou won the game!");
+                Console.WriteLine("\nIt took you " + TotalTime + " seconds to click the black dot 50 times.");
+            }
         }
         void DrawTarget()
         {
